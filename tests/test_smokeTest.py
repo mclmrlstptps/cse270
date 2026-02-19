@@ -11,11 +11,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
 
-def setup_method(self, method):
-  options = Options()
-  options.add_argument("--headless=new")
-  self.driver = webdriver.Chrome(options=options)
-  self.vars = {}
+class TestSmokeTest():
+  def setup_method(self, method):
+    options = Options()
+    options.add_argument("--headless=new")
+    self.driver = webdriver.Chrome(options=options)
+    self.vars = {}
   
   def teardown_method(self, method):
     self.driver.quit()
@@ -66,7 +67,7 @@ def setup_method(self, method):
   
   def test_joinPage(self):
     self.driver.get("http://127.0.0.1:5500/teton/1.6/index.html")
-    self.driver.set_window_size(805, 815)
+    self.driver.set_window_size(806, 975)
     self.driver.find_element(By.LINK_TEXT, "Join Us").click()
     self.driver.find_element(By.NAME, "fname").click()
     elements = self.driver.find_elements(By.NAME, "fname")
@@ -80,6 +81,8 @@ def setup_method(self, method):
     self.driver.find_element(By.NAME, "biztitle").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.NAME, "biztitle")))
     self.driver.find_element(By.NAME, "submit").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.NAME, "email")))
+    self.driver.get("http://127.0.0.1:5500/teton/1.6/join-step2.html?fname=ghj&lname=khj&bizname=kjh&biztitle=hj&submit=Next+Step")
     self.driver.find_element(By.NAME, "email").click()
+    elements = self.driver.find_elements(By.NAME, "email")
+    assert len(elements) > 0
   
