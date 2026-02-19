@@ -81,4 +81,5 @@ class TestSmokeTest():
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.NAME, "email")))
     self.driver.find_element(By.NAME, "email").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.NAME, "email")))
+    self.driver.find_element(By.NAME, "email").click()
   
